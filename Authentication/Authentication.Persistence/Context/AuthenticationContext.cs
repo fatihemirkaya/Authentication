@@ -1,9 +1,7 @@
 ﻿using Authentication.Domain.Entity;
 using Authentication.Persistence.Configs;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Authentication.Persistence.Context
 {
@@ -12,8 +10,6 @@ namespace Authentication.Persistence.Context
         public AuthenticationContext(DbContextOptions<AuthenticationContext> options)
           : base(options)
         {
-
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,5 +19,13 @@ namespace Authentication.Persistence.Context
         }
 
         public DbSet<User> User { get; set; }
+        public DbSet<Group> Group { get; set; }
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Permission> Permission { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<RoleMenu> RoleMenu { get; set; }
+        public DbSet<RolePermission> RolePermission { get; set; }
+        public DbSet<UserDetail> UserDetail { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Authentication.Common.Entity;
 using System;
+using System.Collections.Generic;
 
 namespace Authentication.Domain.Entity
 {
@@ -15,7 +16,10 @@ namespace Authentication.Domain.Entity
         public virtual long? ModifierUserId { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
         public virtual DateTime? LastModTime { get; protected set; }
+
+        public virtual UserDetail UserDetail { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
+        public virtual ICollection<UserRole> UserRoles { get; protected set; }
 
         public User() { }
 
