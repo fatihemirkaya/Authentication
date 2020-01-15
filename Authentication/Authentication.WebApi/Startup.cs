@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication.Infrastructure.DI.Installers;
+using Authentication.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,10 +41,9 @@ namespace Authentication.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseExceptionMiddleWare();
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
