@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Authentication.WebApi
 {
@@ -31,6 +33,31 @@ namespace Authentication.WebApi
             services.AddRepository();
             services.AddServices();
             services.AddControllers();
+
+            Microsoft.OpenApi.Models.OpenApiInfo inf = new Microsoft.OpenApi.Models.OpenApiInfo();
+            inf.Title = "EDakik API";
+            inf.Description = "SWAGGER DOCUMENT";
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
+
+                c.SwaggerDoc("v1", inf);
+
+                var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"EdakikApi.xml";
+                c.IncludeXmlComments(xmlPath);
+
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +72,8 @@ namespace Authentication.WebApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EDakik Api"));
 
             app.UseEndpoints(endpoints =>
             {
