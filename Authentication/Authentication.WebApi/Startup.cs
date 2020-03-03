@@ -35,7 +35,7 @@ namespace Authentication.WebApi
             services.AddControllers();
 
             Microsoft.OpenApi.Models.OpenApiInfo inf = new Microsoft.OpenApi.Models.OpenApiInfo();
-            inf.Title = "EDakik API";
+            inf.Title = "Authentication API";
             inf.Description = "SWAGGER DOCUMENT";
 
 
@@ -52,7 +52,7 @@ namespace Authentication.WebApi
 
                 c.SwaggerDoc("v1", inf);
 
-                var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"EdakikApi.xml";
+                var xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + @"Authentication.xml";
                 c.IncludeXmlComments(xmlPath);
 
             });
@@ -73,7 +73,7 @@ namespace Authentication.WebApi
             app.UseRouting();
             app.UseAuthorization();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EDakik Api"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Api"));
 
             app.UseEndpoints(endpoints =>
             {

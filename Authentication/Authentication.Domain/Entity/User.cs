@@ -16,7 +16,6 @@ namespace Authentication.Domain.Entity
         public virtual long? ModifierUserId { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
         public virtual DateTime? LastModTime { get; protected set; }
-
         public virtual UserDetail UserDetail { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
         public virtual ICollection<UserRole> UserRoles { get; protected set; }
@@ -35,6 +34,22 @@ namespace Authentication.Domain.Entity
             this.CreationTime = DateTime.Now;
             this.IsDeleted = false;
             this.Status = StatusType.Available;
+        }
+
+        public User UserUpdate(string _name, string _surname, string _email)
+        {
+            if (!String.IsNullOrWhiteSpace(_name))
+                this.Name = _name;
+
+            if (!String.IsNullOrWhiteSpace(SurName))
+                this.SurName = _surname;
+
+            if (!String.IsNullOrWhiteSpace(Email))   //TODO Email Doğrulama
+                this.Email = _email;
+
+            return this;
+
+
         }
     }
 
