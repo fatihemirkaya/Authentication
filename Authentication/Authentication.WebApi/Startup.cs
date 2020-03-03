@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Authentication.Domain;
 using Authentication.Infrastructure.DI.Installers;
 using Authentication.Infrastructure.Middleware;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +40,13 @@ namespace Authentication.WebApi
             inf.Title = "Authentication API";
             inf.Description = "SWAGGER DOCUMENT";
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<DomainToResponseProfile>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddSwaggerGen(c =>
             {

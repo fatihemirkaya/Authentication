@@ -4,6 +4,7 @@ using Authentication.Common.Security;
 using Authentication.Domain.Dto.User;
 using Authentication.Domain.Entity;
 using Authentication.Domain.Repository.Uow;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,10 +16,11 @@ namespace Authentication.Application.Services
     {
 
         private readonly IUnitOfWork uow;
-
-        public AuthenticationService(IUnitOfWork _uow)
+        private readonly IMapper Imapper;
+        public AuthenticationService(IUnitOfWork _uow, IMapper _iMapper)
         {
             uow = _uow;
+            this.Imapper = _iMapper;
         }
 
         public async Task<InsertUserResponseDTO> InsertUserAsync(InsertUserRequestDTO request)
@@ -36,8 +38,8 @@ namespace Authentication.Application.Services
         public GetUserListResponseDTO GetUsers(GetUserRequestDTO request)
         {
             var users = uow.User.GetUsers(request.UserID, request.UserName, request.Name, request.SurName, request.Email);
-            //var result = Imapper.Map<GetUserListResponseDTO>(users);
-            return new GetUserListResponseDTO();
+            var result = Imapper.Map<GetUserListResponseDTO>(users);
+            return result;
         }
 
         public async Task<ValidateUserResponseDTO> ValidateUserAsync(ValidateUserRequestDTO request)
@@ -50,17 +52,9 @@ namespace Authentication.Application.Services
             
             var user = await uow.User.ValidateUser(request.UserName, request.Password);
 
-            //var accessToken = await this.CreateAccessToken(user);
+            var result = Imapper.Map<ValidateUserResponseDTO>(user);
 
-
-
-            //var result = Imapper.Map<ValidateUserResponseDTO>(user);
-
-            //result.Token = accessToken.Token;
-            //result.RefreshToken = accessToken.RefreshToken;
-            //result.TokenExpireDate = accessToken.Expiration;
-
-            return new ValidateUserResponseDTO();
+            return result;
         }
 
     }
