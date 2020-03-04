@@ -11,6 +11,7 @@ namespace Authentication.Domain.Repository.Uow
     {
         private readonly AuthenticationContext _dbContext;
         private IUserRepository _user;
+        private IUserTokenRepo _userToken;
 
         public UnitOfWork(AuthenticationContext dbContext)
         {
@@ -26,6 +27,18 @@ namespace Authentication.Domain.Repository.Uow
                     this._user = new UserRepository(_dbContext);
                 }
                 return this._user;
+            }
+        }
+
+        public IUserTokenRepo UserToken
+        {
+            get
+            {
+                if (this._userToken == null)
+                {
+                    this._userToken = new UserTokenRepo(_dbContext);
+                }
+                return this._userToken;
             }
         }
 

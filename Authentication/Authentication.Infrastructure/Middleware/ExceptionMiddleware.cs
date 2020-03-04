@@ -1,5 +1,7 @@
 ﻿using Authentication.Common.Exceptions;
+using Authentication.Domain.Token;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +12,11 @@ namespace Authentication.Infrastructure.Middleware
     public class ExceptionMiddleware
     {
         RequestDelegate next;
-        public ExceptionMiddleware(RequestDelegate _next)
+        private readonly TokenOptions tokenOpt;
+        public ExceptionMiddleware(RequestDelegate _next, IOptions<TokenOptions> _tokenOpt)
         {
             next = _next;
+            this.tokenOpt = _tokenOpt.Value;
         }
 
         public async Task InvokeAsync(HttpContext context)

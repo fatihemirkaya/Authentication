@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Authentication.Application.Services;
 using Authentication.Domain.Dto.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -34,7 +35,7 @@ namespace Authentication.WebApi.Controllers
             return await AuthenticationService.ValidateUserAsync(request);
         }
 
-    
+        [Authorize]
         [HttpPost]
         [Route("/api/v1/GetUsers")]
         public GetUserListResponseDTO GetUsers(GetUserRequestDTO request)

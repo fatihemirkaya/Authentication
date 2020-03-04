@@ -9,6 +9,8 @@ namespace Authentication.Domain.Repository.Uow
     public interface IUnitOfWork
     {
         IUserRepository User { get; }
+
+        IUserTokenRepo UserToken { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

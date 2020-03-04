@@ -27,5 +27,6 @@ namespace Authentication.Persistence.Context
         public DbSet<RolePermission> RolePermission { get; set; }
         public DbSet<UserDetail> UserDetail { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<UserToken> UserToken { get; set; }
     }
 }

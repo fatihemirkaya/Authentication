@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication.Domain;
+using Authentication.Domain.Token;
 using Authentication.Infrastructure.DI.Installers;
 using Authentication.Infrastructure.Middleware;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,7 +36,30 @@ namespace Authentication.WebApi
             services.AddPersistence(Configuration);
             services.AddRepository();
             services.AddServices();
+            services.AddTokens();
             services.AddControllers();
+
+
+
+
+            var tokenopts = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(jwtopt =>
+            {
+                jwtopt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = tokenopts.Issuer,
+                    ValidAudience = tokenopts.Audience,
+                    IssuerSigningKey = SignHandler.GetSecurityKey(tokenopts.SecurityKey),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
 
             Microsoft.OpenApi.Models.OpenApiInfo inf = new Microsoft.OpenApi.Models.OpenApiInfo();
             inf.Title = "Authentication API";
@@ -80,7 +105,8 @@ namespace Authentication.WebApi
             app.UseExceptionMiddleWare();
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();          
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Authentication Api"));
 
