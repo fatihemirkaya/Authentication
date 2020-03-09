@@ -1,6 +1,9 @@
 ﻿using Authentication.Common.Constants;
 using Authentication.Common.Exceptions;
 using Authentication.Common.Security;
+using Authentication.Domain.Dto.Permission;
+using Authentication.Domain.Dto.Role;
+using Authentication.Domain.Dto.RolePermission;
 using Authentication.Domain.Dto.User;
 using Authentication.Domain.Entity;
 using Authentication.Domain.Repository.Uow;
@@ -31,6 +34,9 @@ namespace Authentication.Application.Services
 
         }
 
+
+        #region User
+
         public async Task<InsertUserResponseDTO> InsertUserAsync(InsertUserRequestDTO request)
         {
             InsertUserResponseDTO response = new InsertUserResponseDTO();
@@ -57,7 +63,7 @@ namespace Authentication.Application.Services
             {
                 throw new BusinessException(ResponseCode.UserNameOrUserPasswordNotNull);
             }
-            
+
             var user = await uow.User.ValidateUser(request.UserName, request.Password);
 
             var accessToken = await this.CreateAccessToken(user);
@@ -70,6 +76,136 @@ namespace Authentication.Application.Services
 
             return result;
         }
+
+        #endregion
+
+        public async Task<InsertRoleResponseDTO> InsertRoleAsync(InsertRoleRequestDTO request)
+        {
+            InsertRoleResponseDTO response = new InsertRoleResponseDTO();
+
+            if (request.GroupId < 1 || String.IsNullOrEmpty(request.RoleName) || String.IsNullOrEmpty(request.RoleDescription))
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+
+            var grp = await uow.Group.GetAsync(x => x.Id == request.GroupId);
+
+            if (grp == null)
+            {
+                throw new BusinessException(ResponseCode.GroupNotFound);
+            }
+
+
+            Role createdRole = new Role(request.RoleName, request.RoleDescription, grp);
+
+            await uow.Role.InsertAsync(createdRole);
+            await uow.CompleteAsync();
+
+            return response;
+        }
+
+        public async Task<InsertPermissionResponseDTO> InsertPermissionAsync(InsertPermissionRequestDTO request)
+        {
+            InsertPermissionResponseDTO response = new InsertPermissionResponseDTO();
+
+            if (String.IsNullOrEmpty(request.PermissionName) || String.IsNullOrEmpty(request.PermissionDescription) || String.IsNullOrEmpty(request.ActionName))
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+
+            Permission createdGroup = new Permission(request.PermissionName, request.PermissionDescription, request.ActionName);
+
+            await uow.Permission.InsertAsync(createdGroup);
+            await uow.CompleteAsync();
+
+            return response;
+        }
+
+        public async Task<InsertRolePermissionResponseDTO> InsertRolePermissionAsync(InsertRolePermissionRequestDTO request)
+        {
+            InsertRolePermissionResponseDTO response = new InsertRolePermissionResponseDTO();
+
+            if (request.PermissionId < 1 || request.RoleId < 1)
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+
+            var permission = await uow.Permission.GetAsync(x => x.Id == request.PermissionId);
+
+            if (permission == null)
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+
+            var role = await uow.Role.GetAsync(x => x.Id == request.RoleId);
+
+            if (role == null)
+            {
+                throw new BusinessException(ResponseCode.RoleNotFound);
+            }
+
+            RolePermission createdRolePermission = new RolePermission(role, permission);
+
+            await uow.RolePermission.InsertAsync(createdRolePermission);
+            await uow.CompleteAsync();
+
+            return response;
+        }
+
+        public async Task<InsertRoleGroupResponseDTO> InsertRoleGroupAsync(InsertRoleGroupRequestDTO request)
+        {
+
+            InsertRoleGroupResponseDTO response = new InsertRoleGroupResponseDTO();
+
+            if (request.GroupID < 1 || request.RoleID < 1)
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+            var role = await uow.Role.GetAsync(x => x.Id == request.RoleID);
+
+            if (role == null)
+            {
+                throw new BusinessException(ResponseCode.RoleNotFound);
+            }
+            var group = await uow.Group.GetAsync(x => x.Id == request.GroupID);
+
+            if (group == null)
+            {
+                throw new BusinessException(ResponseCode.GroupNotFound);
+            }
+
+            RoleGroup roleGroup = new RoleGroup(role, group);
+
+            await uow.RoleGroup.InsertAsync(roleGroup);
+            await uow.CompleteAsync();
+
+
+            return response;
+        }
+
+        public async Task<InsertUserGroupResponseDTO> InsertUserGroupAsync(InsertUserGroupRequestDTO request)
+        {
+
+            InsertUserGroupResponseDTO response = new InsertUserGroupResponseDTO();
+
+            if (request.UserID < 1 || String.IsNullOrEmpty(request.Description) || request.LastModTime == null)
+            {
+                throw new BusinessException(ResponseCode.ValidataionError);
+            }
+
+
+            UserGroup userGroup = new UserGroup(request.UserID,request.GroupId, request.Description, request.LastModTime);
+
+            await uow.UserGroup.InsertAsync(userGroup);
+            await uow.CompleteAsync();
+
+
+            return response;
+        }
+
+
+
+        #region Token
 
         private async Task<AccessToken> CreateAccessToken(User user)
         {
@@ -89,7 +225,11 @@ namespace Authentication.Application.Services
             return accessToken;
         }
 
-      
+        #endregion
+
+
+
+
 
 
     }

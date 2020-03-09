@@ -15,6 +15,30 @@ namespace Authentication.Domain.Entity
         public virtual long? ModifierUserId { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
         public virtual ICollection<RolePermission> RolePermission { get; protected set; }
+
+        public Permission(string permissionName, string permissionDesc, string actionName)
+        {
+            this.PermissionName = permissionName;
+            this.PermissionDescription = permissionDesc;
+            this.ActionName = actionName;
+            this.CreationTime = DateTime.Now;
+            this.CreatorUserId = 1; //TODO
+        }
+        public Permission PermissionUpdate(string PermissionName, string PermissionDesc, string ActionName)
+        {
+            if (!String.IsNullOrWhiteSpace(PermissionName))
+                this.PermissionName = PermissionName;
+
+            if (!String.IsNullOrWhiteSpace(PermissionDesc))
+                this.PermissionDescription = PermissionDesc;
+
+            if (!String.IsNullOrWhiteSpace(ActionName))   //TODO Email Doğrulama
+                this.ActionName = ActionName;
+
+            return this;
+
+
+        }
     }
 
 

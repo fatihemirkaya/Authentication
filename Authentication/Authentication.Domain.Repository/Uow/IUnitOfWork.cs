@@ -1,4 +1,9 @@
 ﻿using Authentication.Domain.Repository.Repository;
+using Authentication.Domain.Repository.Repository.Group;
+using Authentication.Domain.Repository.Repository.Permission;
+using Authentication.Domain.Repository.Repository.RoleGroup;
+using Authentication.Domain.Repository.Repository.RolePermission;
+using Authentication.Domain.Repository.Repository.UserGroup;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +16,17 @@ namespace Authentication.Domain.Repository.Uow
         IUserRepository User { get; }
 
         IUserTokenRepo UserToken { get; }
+
+        IRoleRepository Role { get; }
+
+        IRolePermissionRepository RolePermission { get; }
+
+        IUserGroupRepository UserGroup { get; }
+
+        IRoleGroupRepository RoleGroup { get; }
+        IPermissionRepository Permission { get; }
+
+        IGroupRepository Group { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

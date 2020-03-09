@@ -17,6 +17,30 @@ namespace Authentication.Domain.Entity
         public virtual long? ModifierUserId { get; protected set; }
         public virtual ICollection<RoleMenu> RoleMenu { get; protected set; }
         public virtual ICollection<RolePermission> RolePermissions { get; protected set; }
+
+
+        public Role(string roleName, string roleDesc, Group grp)
+        {
+            this.RoleName = roleName;
+            this.RoleDescription = roleDesc;
+            this.Group = grp;
+            this.CreationTime = DateTime.Now;
+            this.CreatorUserId = 1; //TODO
+        }
+        public Role RoleUpdate(string roleName, string roleDesc)
+        {
+            if (!String.IsNullOrWhiteSpace(roleName))
+                this.RoleName = roleName;
+
+            if (!String.IsNullOrWhiteSpace(roleDesc))
+                this.RoleDescription = roleDesc;
+
+
+            return this;
+
+
+        }
+
     }
 
 

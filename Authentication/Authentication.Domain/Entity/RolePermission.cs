@@ -15,6 +15,32 @@ namespace Authentication.Domain.Entity
         public virtual long? ModifierUserId { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
 
+        public RolePermission(Role role, Permission permission)
+        {
+            Role = role;
+            Permission = permission;
+            CreationTime = DateTime.Now;
+            CreatorUserId = 1; //TODO
+        }
+
+        public RolePermission()
+        {
+
+        }
+        public RolePermission RolePermissionUpdate(Role role, Permission permission)
+        {
+            if (role != null)
+                this.Role = role;
+
+            if (permission != null)
+                this.Permission = permission;
+
+
+            return this;
+
+
+        }
+
     }
 
 

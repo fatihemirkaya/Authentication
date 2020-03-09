@@ -1,4 +1,10 @@
 ﻿using Authentication.Domain.Repository.Repository;
+using Authentication.Domain.Repository.Repository.Group;
+using Authentication.Domain.Repository.Repository.Permission;
+using Authentication.Domain.Repository.Repository.Role;
+using Authentication.Domain.Repository.Repository.RoleGroup;
+using Authentication.Domain.Repository.Repository.RolePermission;
+using Authentication.Domain.Repository.Repository.UserGroup;
 using Authentication.Persistence.Context;
 using System;
 using System.Collections.Generic;
@@ -11,6 +17,12 @@ namespace Authentication.Domain.Repository.Uow
     {
         private readonly AuthenticationContext _dbContext;
         private IUserRepository _user;
+        private IRoleRepository _role;
+        private IGroupRepository _group;
+        private IUserGroupRepository _userGroup;
+        private IPermissionRepository _permission;
+        private IRolePermissionRepository _rolePermission;
+        private IRoleGroupRepository _roleGroup;
         private IUserTokenRepo _userToken;
 
         public UnitOfWork(AuthenticationContext dbContext)
@@ -27,6 +39,78 @@ namespace Authentication.Domain.Repository.Uow
                     this._user = new UserRepository(_dbContext);
                 }
                 return this._user;
+            }
+        }
+
+        public IRoleRepository Role
+        {
+            get
+            {
+                if (this._role == null)
+                {
+                    this._role = new RoleRepository(_dbContext);
+                }
+                return this._role;
+            }
+        }
+
+        public IGroupRepository Group
+        {
+            get
+            {
+                if (this._group == null)
+                {
+                    this._group = new GroupRepository(_dbContext);
+                }
+                return this._group;
+            }
+        }
+
+        public IUserGroupRepository UserGroup
+        {
+            get
+            {
+                if (this._userGroup == null)
+                {
+                    this._userGroup = new UserGroupRepository(_dbContext);
+                }
+                return this._userGroup;
+            }
+        }
+
+        public IRolePermissionRepository RolePermission
+        {
+            get
+            {
+                if (this._rolePermission == null)
+                {
+                    this._rolePermission = new RolePermissionRepository(_dbContext);
+                }
+                return this._rolePermission;
+            }
+        }
+
+        public IRoleGroupRepository RoleGroup
+        {
+            get
+            {
+                if (this._roleGroup == null)
+                {
+                    this._roleGroup = new RoleGroupRepository(_dbContext);
+                }
+                return this._roleGroup;
+            }
+        }
+
+        public IPermissionRepository Permission
+        {
+            get
+            {
+                if (this._permission == null)
+                {
+                    this._permission = new PermissionRepository(_dbContext);
+                }
+                return this._permission;
             }
         }
 
