@@ -10,4 +10,19 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\ResponseMessage_en_US.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResponseMessage_en_US.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ResponseMessage_en_US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResponseMessage_en_US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

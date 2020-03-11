@@ -13,7 +13,7 @@ namespace Authentication.Common.DTO
     {
         public ResponseDTOBase()
         {
-            this.header = new ResponseHeader
+            this.responseInfo = new ResponseInfo
             {
                 responseCode = ResponseCode.Success,
                 IsSuccess = true,
@@ -29,7 +29,7 @@ namespace Authentication.Common.DTO
         }
 
         [DataMember]
-        public ResponseHeader header { get; set; }
+        public ResponseInfo responseInfo { get; set; }
 
         [DataMember]
         public ResponseDataInfo dataInfo { get; set; }

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Authentication.Common.DTO
 {
     [DataContract]
-    public class RequestHeader
+    public class RequestInfo
     {
         [DataMember]
         public Guid TrackId { get; set; }

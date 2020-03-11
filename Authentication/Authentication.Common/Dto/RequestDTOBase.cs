@@ -11,12 +11,12 @@ namespace Authentication.Common.DTO
     {
         public RequestDTOBase()
         {
-            this.Header = new RequestHeader();
+            this.RequestInfo = new RequestInfo();
             this.DataInfo = new RequestDataInfo();
         }
 
         [DataMember]
-        public RequestHeader Header { get; set; }
+        public RequestInfo RequestInfo { get; set; }
 
         [DataMember]
         public RequestDataInfo DataInfo { get; set; }

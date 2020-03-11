@@ -6,7 +6,7 @@ using System.Text;
 namespace Authentication.Common.DTO
 {
     [DataContract]
-    public class ResponseHeader
+    public class ResponseInfo
     {
         [DataMember]
         public bool IsSuccess { get; set; }
