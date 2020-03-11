@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication.Application.Services;
+using Authentication.Domain.Dto.Permission;
+using Authentication.Domain.Dto.Role;
+using Authentication.Domain.Dto.RolePermission;
 using Authentication.Domain.Dto.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,5 +45,51 @@ namespace Authentication.WebApi.Controllers
         {
             return AuthenticationService.GetUsers(request);
         }
+
+      
+        [HttpPost]
+        [Route("/api/v1/InsertRoleAsync")]
+        public Task<InsertRoleResponseDTO> InsertRoleAsync(InsertRoleRequestDTO request)
+        {
+            return AuthenticationService.InsertRoleAsync(request);
+        }
+
+       
+        [HttpPost]
+        [Route("/api/v1/InsertPermissionAsync")]
+        public Task<InsertPermissionResponseDTO> InsertPermissionAsync(InsertPermissionRequestDTO request)
+        {
+            return AuthenticationService.InsertPermissionAsync(request);
+        }
+
+
+       
+        [HttpPost]
+        [Route("/api/v1/InsertRolePermissionAsync")]
+        public Task<InsertRolePermissionResponseDTO> InsertRolePermissionAsync(InsertRolePermissionRequestDTO request)
+        {
+            return AuthenticationService.InsertRolePermissionAsync(request);
+        }
+
+
+        
+        [HttpPost]
+        [Route("/api/v1/InsertRoleGroupAsync")]
+        public Task<InsertRoleGroupResponseDTO> InsertRoleGroupAsync(InsertRoleGroupRequestDTO request)
+        {
+            return AuthenticationService.InsertRoleGroupAsync(request);
+        }
+
+
+        
+        [HttpPost]
+        [Route("/api/v1/InsertUserGroupAsync")]
+        public Task<InsertUserGroupResponseDTO> InsertUserGroupAsync(InsertUserGroupRequestDTO request)
+        {
+            return AuthenticationService.InsertUserGroupAsync(request);
+        }
+
+
+        
     }
 }
