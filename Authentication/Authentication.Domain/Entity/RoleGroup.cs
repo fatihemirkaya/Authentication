@@ -12,10 +12,10 @@ namespace Authentication.Domain.Entity
         public virtual DateTime? LastModTime { get; protected set; }
         public virtual long? ModifierUserId { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
-        public virtual long RoleID { get; protected set; }
-        public virtual Role Role { get; set; }
-        public virtual long GroupID { get; protected set; }
-        public virtual Group Group { get; set; }
+        public virtual long RoleId { get; protected set; }
+        public virtual Role Role { get; protected set; }
+        public virtual long GroupId { get; protected set; }
+        public virtual Group Group { get; protected set; }
 
         public RoleGroup()
         {

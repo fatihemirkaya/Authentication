@@ -16,6 +16,10 @@ namespace Authentication.Domain.Entity
         public virtual bool IsDeleted { get; protected set; }
         public virtual ICollection<RolePermission> RolePermission { get; protected set; }
 
+
+        public Permission()
+        { }
+
         public Permission(string permissionName, string permissionDesc, string actionName)
         {
             this.PermissionName = permissionName;

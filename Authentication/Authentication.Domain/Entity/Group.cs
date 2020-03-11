@@ -13,7 +13,7 @@ namespace Authentication.Domain.Entity
         public virtual DateTime CreationTime { get; protected set; }
         public virtual DateTime? LastModTime { get; protected set; }
         public virtual long? ModifierUserId { get; protected set; }
-        public virtual ICollection<Role> Roles { get; protected set; }
+        public virtual ICollection<RoleGroup> RoleGroups { get; protected set; }
 
 
 

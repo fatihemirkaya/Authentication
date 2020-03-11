@@ -4,14 +4,16 @@ using Authentication.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Authentication.Persistence.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20200311064958_003")]
+    partial class _003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
