@@ -46,7 +46,6 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.GetUsers(request);
         }
 
-      
         [HttpPost]
         [Route("/api/v1/InsertRoleAsync")]
         public Task<InsertRoleResponseDTO> InsertRoleAsync(InsertRoleRequestDTO request)
@@ -54,7 +53,6 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.InsertRoleAsync(request);
         }
 
-       
         [HttpPost]
         [Route("/api/v1/InsertPermissionAsync")]
         public Task<InsertPermissionResponseDTO> InsertPermissionAsync(InsertPermissionRequestDTO request)
@@ -62,8 +60,6 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.InsertPermissionAsync(request);
         }
 
-
-       
         [HttpPost]
         [Route("/api/v1/InsertRolePermissionAsync")]
         public Task<InsertRolePermissionResponseDTO> InsertRolePermissionAsync(InsertRolePermissionRequestDTO request)
@@ -71,8 +67,6 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.InsertRolePermissionAsync(request);
         }
 
-
-        
         [HttpPost]
         [Route("/api/v1/InsertRoleGroupAsync")]
         public Task<InsertRoleGroupResponseDTO> InsertRoleGroupAsync(InsertRoleGroupRequestDTO request)
@@ -80,8 +74,6 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.InsertRoleGroupAsync(request);
         }
 
-
-        
         [HttpPost]
         [Route("/api/v1/InsertUserGroupAsync")]
         public Task<InsertUserGroupResponseDTO> InsertUserGroupAsync(InsertUserGroupRequestDTO request)
@@ -89,7 +81,11 @@ namespace Authentication.WebApi.Controllers
             return AuthenticationService.InsertUserGroupAsync(request);
         }
 
-
-        
+        [HttpPost]
+        [Route("/api/v1/InsertUserRoleAsync")]
+        public Task<InsertUserRoleResponseDTO> InsertUserRoleAsync(InsertUserRoleRequestDTO request)
+        {
+            return AuthenticationService.InsertUserRole(request);
+        }
     }
 }

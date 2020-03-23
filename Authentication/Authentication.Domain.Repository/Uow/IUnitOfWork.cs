@@ -14,19 +14,16 @@ namespace Authentication.Domain.Repository.Uow
     public interface IUnitOfWork
     {
         IUserRepository User { get; }
-
         IUserTokenRepo UserToken { get; }
-
         IRoleRepository Role { get; }
-
         IRolePermissionRepository RolePermission { get; }
-
         IUserGroupRepository UserGroup { get; }
-
         IRoleGroupRepository RoleGroup { get; }
         IPermissionRepository Permission { get; }
-
         IGroupRepository Group { get; }
+        IUserApplicationRepository UserApplication { get; }
+        IApplicationRepository Application { get; }
+        IUserRoleRepository UserRole { get; }
         Task<int> CompleteAsync();
         int Complete();
     }

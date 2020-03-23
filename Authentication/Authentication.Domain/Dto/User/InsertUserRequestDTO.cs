@@ -1,4 +1,5 @@
 ﻿using Authentication.Common.DTO;
+using Authentication.Common.Enum;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -19,6 +20,10 @@ namespace Authentication.Domain.Dto.User
         public string Email { get; set; }
         [DataMember]
         public string Password { get; set; }
+        [DataMember]
+        public UserType UserType { get; set; }
+        [DataMember]
+        public long ApplicationId { get; set; }
 
 
     }

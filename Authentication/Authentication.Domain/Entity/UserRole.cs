@@ -14,6 +14,12 @@ namespace Authentication.Domain.Entity
         public virtual DateTime? LastModTime { get; protected set; }
         public virtual long? ModifierUserId { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
+
+        public UserRole(long roleId, long userId)
+        {
+            this.RoleId = roleId;
+            this.UserId = userId;
+        }
     }
 
 

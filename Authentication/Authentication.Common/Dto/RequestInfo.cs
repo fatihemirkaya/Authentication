@@ -13,6 +13,9 @@ namespace Authentication.Common.DTO
         public DateTime MessageSendTime { get; set; }
 
         [DataMember]
+        public long ApplicationId { get; set; }
+
+        [DataMember]
         public string ClientCode { get; set; }
 
         [DataMember]

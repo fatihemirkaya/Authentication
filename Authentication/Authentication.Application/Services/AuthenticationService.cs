@@ -24,14 +24,13 @@ namespace Authentication.Application.Services
         private readonly IMapper Imapper;
         private readonly TokenOptions tokenOpt;
         private readonly ITokenHandler tokenHandler;
-   
+
         public AuthenticationService(IUnitOfWork _uow, IMapper _iMapper, ITokenHandler _tokenHandler, IOptions<TokenOptions> _tokenOpt)
         {
             uow = _uow;
             this.Imapper = _iMapper;
             this.tokenHandler = _tokenHandler;
             this.tokenOpt = _tokenOpt.Value;
-
         }
 
 
@@ -40,10 +39,25 @@ namespace Authentication.Application.Services
         public async Task<InsertUserResponseDTO> InsertUserAsync(InsertUserRequestDTO request)
         {
             InsertUserResponseDTO response = new InsertUserResponseDTO();
+
+            var app = await uow.Application.GetAsync(x => x.Id == request.ApplicationId);
+
+            if (app == null)
+            {
+                throw new BusinessException(ResponseCode.ApplicationNotFound);
+            }
+
             string password = request.Password;
             var hashedpassword = HashHelper.GetEncryptedString(password);
             User createdUser = new User(request.UserName, request.Name, request.SurName, request.Email, hashedpassword[0], hashedpassword[1]);
+
+
             await uow.User.InsertAsync(createdUser);
+            await uow.CompleteAsync();
+            UserApplication usrApp = new UserApplication(app.Id, createdUser.Id);
+
+            
+            await uow.UserApplication.InsertAsync(usrApp);
             await uow.CompleteAsync();
 
             return response;
@@ -59,12 +73,12 @@ namespace Authentication.Application.Services
         public async Task<ValidateUserResponseDTO> ValidateUserAsync(ValidateUserRequestDTO request)
         {
 
-            if (String.IsNullOrEmpty(request.UserName) || String.IsNullOrEmpty(request.Password))
+            if (String.IsNullOrEmpty(request.UserName) || String.IsNullOrEmpty(request.Password) || request.RequestInfo.ApplicationId <= 0)
             {
                 throw new BusinessException(ResponseCode.UserNameOrUserPasswordNotNull);
             }
 
-            var user = await uow.User.ValidateUser(request.UserName, request.Password);
+            var user = await uow.User.ValidateUser(request.UserName, password: request.Password, appId: request.RequestInfo.ApplicationId);
 
             var accessToken = await this.CreateAccessToken(user);
 
@@ -113,7 +127,7 @@ namespace Authentication.Application.Services
                 throw new BusinessException(ResponseCode.ValidataionError);
             }
 
-            Permission createdGroup = new Permission(request.PermissionName, request.PermissionDescription, request.ActionName);
+            Permission createdGroup = new Permission(request.PermissionName, request.PermissionDescription, request.ActionName,request.RequestInfo.ApplicationId);
 
             await uow.Permission.InsertAsync(createdGroup);
             await uow.CompleteAsync();
@@ -194,9 +208,26 @@ namespace Authentication.Application.Services
             }
 
 
-            UserGroup userGroup = new UserGroup(request.UserID,request.GroupId, request.Description, request.LastModTime);
+            UserGroup userGroup = new UserGroup(request.UserID, request.GroupId, request.Description, request.LastModTime);
 
             await uow.UserGroup.InsertAsync(userGroup);
+            await uow.CompleteAsync();
+
+
+            return response;
+        }
+
+        public async Task<InsertUserRoleResponseDTO> InsertUserRole(InsertUserRoleRequestDTO request)
+        {
+
+            InsertUserRoleResponseDTO response = new InsertUserRoleResponseDTO();
+
+            if (request.UserID < 1 || request.RoleId <1)
+                throw new BusinessException(ResponseCode.ValidataionError);
+
+            UserRole userRole = new UserRole(request.RoleId,request.UserID);
+
+            await uow.UserRole.InsertAsync(userRole);
             await uow.CompleteAsync();
 
 

@@ -15,7 +15,13 @@ namespace Authentication.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserEntityConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PermissionConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RoleGroupConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RolePermissionConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserTokenConfiguration).Assembly);
         }
 
         public DbSet<User> User { get; set; }
@@ -29,5 +35,7 @@ namespace Authentication.Persistence.Context
         public DbSet<UserDetail> UserDetail { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<UserToken> UserToken { get; set; }
+        public DbSet<Application> Application { get; set; }
+        public DbSet<UserApplication> UserApplication { get; set; }
     }
 }

@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Authentication.Domain.Dto.Role
+namespace Authentication.Domain.Dto.User
 {
     [DataContract]
-    public class InsertRoleGroupRequestDTO : RequestDTOBase
+    public class InsertUserRoleRequestDTO : RequestDTOBase
     {
         [DataMember]
-        public long RoleID { get; set; }
+        public long UserID { get; set; }
         [DataMember]
-        public long GroupID { get; set; }
+        public long RoleId { get; set; }
+
     }
 }

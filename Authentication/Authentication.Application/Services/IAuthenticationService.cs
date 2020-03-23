@@ -28,5 +28,7 @@ namespace Authentication.Application.Services
 
         public Task<InsertUserGroupResponseDTO> InsertUserGroupAsync(InsertUserGroupRequestDTO request);
 
+        public Task<InsertUserRoleResponseDTO> InsertUserRole(InsertUserRoleRequestDTO request);
+
     }
 }

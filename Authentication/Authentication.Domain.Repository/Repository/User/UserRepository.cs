@@ -1,5 +1,6 @@
 ﻿using Authentication.Common.Constants;
 using Authentication.Common.Entity;
+using Authentication.Common.Enum;
 using Authentication.Common.Exceptions;
 using Authentication.Common.Security;
 using Authentication.Domain.Entity;
@@ -60,15 +61,23 @@ namespace Authentication.Domain.Repository.Repository
             return query.ToList();
         }
 
-        public async Task<User> ValidateUser(string username, string password = "")
+        public async Task<User> ValidateUser(string username = "", string password = "", UserType userType = UserType.User, long appId = 0)
         {
 
-            var user = await base.GetAsync((x =>
-               x.UserName == username
-            && x.IsDeleted == false
-            && x.Status == StatusType.Available));
+            var user = base.GetInclude((x =>
+                x.UserName == username
+             && x.IsDeleted == false
+             && x.Status == StatusType.Available
+             && x.UserType == userType), "UserApplications");
 
             if (user == null)
+            {
+                throw new BusinessException(ResponseCode.UserNotFound);
+            }
+
+            var _userApplications =user.UserApplications.Where(x => x.ApplicationId == appId);
+
+            if (!_userApplications.Any())
             {
                 throw new BusinessException(ResponseCode.UserNotFound);
             }

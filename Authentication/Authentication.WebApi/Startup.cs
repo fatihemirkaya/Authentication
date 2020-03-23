@@ -39,9 +39,6 @@ namespace Authentication.WebApi
             services.AddTokens();
             services.AddControllers();
 
-
-
-
             var tokenopts = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
 
@@ -72,7 +69,6 @@ namespace Authentication.WebApi
 
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
-
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -103,6 +99,7 @@ namespace Authentication.WebApi
             }
 
             app.UseExceptionMiddleWare();
+            app.UseAuthorizationMiddleWare();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();

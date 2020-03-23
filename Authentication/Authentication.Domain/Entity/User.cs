@@ -1,4 +1,5 @@
 ﻿using Authentication.Common.Entity;
+using Authentication.Common.Enum;
 using System;
 using System.Collections.Generic;
 
@@ -14,15 +15,16 @@ namespace Authentication.Domain.Entity
         public virtual string PasswordSalt { get; protected set; }
         public virtual long CreatorUserId { get; protected set; }
         public virtual long? ModifierUserId { get; protected set; }
+        public UserType UserType { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
         public virtual DateTime? LastModTime { get; protected set; }
         public virtual UserDetail UserDetail { get; protected set; }
+        public virtual UserToken UserToken { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
         public virtual ICollection<UserRole> UserRoles { get; protected set; }
-
+        public virtual ICollection<UserApplication> UserApplications { get; protected set; }
         public User() { }
-
-        public User(string _userName, string _name, string _surName ,string _email, string _password, string _passwordSalt)
+        public User(string _userName, string _name, string _surName ,string _email, string _password, string _passwordSalt,UserType _usertype = UserType.User)
         {
             this.UserName = _userName;
             this.Name = _name;
@@ -30,7 +32,8 @@ namespace Authentication.Domain.Entity
             this.Email = _email;
             this.PasswordSalt = _passwordSalt;
             this.Password = _password;
-            this.CreatorUserId = 1;
+            this.UserType = _usertype;
+            this.CreatorUserId = 1; //TODO
             this.CreationTime = DateTime.Now;
             this.IsDeleted = false;
             this.Status = StatusType.Available;

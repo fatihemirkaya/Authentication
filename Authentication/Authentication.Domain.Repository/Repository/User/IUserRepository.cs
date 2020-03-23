@@ -1,4 +1,5 @@
-﻿using Authentication.Domain.Entity;
+﻿using Authentication.Common.Enum;
+using Authentication.Domain.Entity;
 using Authentication.Domain.Repository.Base;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,6 @@ namespace Authentication.Domain.Repository.Repository
     {
         public List<User> GetUsers(long userid, string username, string name, string surname, string email);
 
-        public Task<User> ValidateUser(string username, string password = "");
+        public Task<User> ValidateUser(string username ="", string password = "", UserType userType = UserType.User, long appId = 0);
     }
 }

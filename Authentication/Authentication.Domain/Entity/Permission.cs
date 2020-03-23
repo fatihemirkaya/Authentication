@@ -14,18 +14,21 @@ namespace Authentication.Domain.Entity
         public virtual DateTime? LastModTime { get; protected set; }
         public virtual long? ModifierUserId { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
+        public virtual long ApplicationId { get; protected set; }
+        public virtual Application Application { get; protected set; }
         public virtual ICollection<RolePermission> RolePermission { get; protected set; }
 
 
         public Permission()
         { }
 
-        public Permission(string permissionName, string permissionDesc, string actionName)
+        public Permission(string permissionName, string permissionDesc, string actionName,long appId)
         {
             this.PermissionName = permissionName;
             this.PermissionDescription = permissionDesc;
             this.ActionName = actionName;
             this.CreationTime = DateTime.Now;
+            this.ApplicationId = appId;
             this.CreatorUserId = 1; //TODO
         }
         public Permission PermissionUpdate(string PermissionName, string PermissionDesc, string ActionName)
