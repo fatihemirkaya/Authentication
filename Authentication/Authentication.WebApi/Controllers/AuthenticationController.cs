@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Authentication.Application.Services;
+﻿using Authentication.Application.Services;
 using Authentication.Domain.Dto.Permission;
 using Authentication.Domain.Dto.Role;
 using Authentication.Domain.Dto.RolePermission;
 using Authentication.Domain.Dto.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Authentication.WebApi.Controllers
 {

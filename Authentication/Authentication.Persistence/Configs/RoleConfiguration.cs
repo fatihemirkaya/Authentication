@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Authentication.Domain.Entity;
+﻿using Authentication.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,7 +21,7 @@ namespace Authentication.Persistence.Configs
              .HasColumnType("varchar(250)")
              .IsRequired();
 
-      
+
 
 
         }

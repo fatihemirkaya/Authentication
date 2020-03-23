@@ -11,8 +11,6 @@ using Authentication.Domain.Token;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Application.Services
@@ -56,7 +54,7 @@ namespace Authentication.Application.Services
             await uow.CompleteAsync();
             UserApplication usrApp = new UserApplication(app.Id, createdUser.Id);
 
-            
+
             await uow.UserApplication.InsertAsync(usrApp);
             await uow.CompleteAsync();
 
@@ -127,7 +125,7 @@ namespace Authentication.Application.Services
                 throw new BusinessException(ResponseCode.ValidataionError);
             }
 
-            Permission createdGroup = new Permission(request.PermissionName, request.PermissionDescription, request.ActionName,request.RequestInfo.ApplicationId);
+            Permission createdGroup = new Permission(request.PermissionName, request.PermissionDescription, request.ActionName, request.RequestInfo.ApplicationId);
 
             await uow.Permission.InsertAsync(createdGroup);
             await uow.CompleteAsync();
@@ -222,10 +220,10 @@ namespace Authentication.Application.Services
 
             InsertUserRoleResponseDTO response = new InsertUserRoleResponseDTO();
 
-            if (request.UserID < 1 || request.RoleId <1)
+            if (request.UserID < 1 || request.RoleId < 1)
                 throw new BusinessException(ResponseCode.ValidataionError);
 
-            UserRole userRole = new UserRole(request.RoleId,request.UserID);
+            UserRole userRole = new UserRole(request.RoleId, request.UserID);
 
             await uow.UserRole.InsertAsync(userRole);
             await uow.CompleteAsync();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Authentication.Common.Constants
+﻿namespace Authentication.Common.Constants
 {
     public class ResponseCode
     {

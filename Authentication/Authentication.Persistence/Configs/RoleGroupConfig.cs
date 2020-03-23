@@ -1,10 +1,6 @@
 ﻿using Authentication.Domain.Entity;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Authentication.Persistence.Configs
 {

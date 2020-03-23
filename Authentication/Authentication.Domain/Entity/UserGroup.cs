@@ -1,7 +1,5 @@
 ﻿using Authentication.Common.Entity;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Authentication.Domain.Entity
 {
@@ -24,7 +22,7 @@ namespace Authentication.Domain.Entity
         {
 
         }
-        public UserGroup(long UserID,long GroupId, string Description, DateTime? LastModTime)
+        public UserGroup(long UserID, long GroupId, string Description, DateTime? LastModTime)
         {
             this.UserID = UserID;
             this.GroupId = GroupId;

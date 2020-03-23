@@ -2,10 +2,6 @@
 using Authentication.Domain.Dto.Role;
 using Authentication.Domain.Dto.RolePermission;
 using Authentication.Domain.Dto.User;
-using Authentication.Domain.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Application.Services

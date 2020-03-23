@@ -1,9 +1,6 @@
 ﻿using Authentication.Common.DTO;
 using Authentication.Common.Enum;
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace Authentication.Domain.Dto.User
 {

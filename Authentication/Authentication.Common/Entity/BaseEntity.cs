@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Authentication.Common.Entity
+﻿namespace Authentication.Common.Entity
 {
     public class BaseEntity
     {

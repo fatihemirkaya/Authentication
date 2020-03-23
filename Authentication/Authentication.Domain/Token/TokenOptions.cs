@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Authentication.Domain.Token
+﻿namespace Authentication.Domain.Token
 {
     public class TokenOptions
     {

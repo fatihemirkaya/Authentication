@@ -24,7 +24,7 @@ namespace Authentication.Domain.Entity
         public virtual ICollection<UserRole> UserRoles { get; protected set; }
         public virtual ICollection<UserApplication> UserApplications { get; protected set; }
         public User() { }
-        public User(string _userName, string _name, string _surName ,string _email, string _password, string _passwordSalt,UserType _usertype = UserType.User)
+        public User(string _userName, string _name, string _surName, string _email, string _password, string _passwordSalt, UserType _usertype = UserType.User)
         {
             this.UserName = _userName;
             this.Name = _name;

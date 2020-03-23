@@ -1,8 +1,5 @@
 ﻿using Authentication.Domain.Repository.Base;
 using Authentication.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Domain.Repository.Repository

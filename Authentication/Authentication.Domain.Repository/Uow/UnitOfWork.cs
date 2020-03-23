@@ -6,9 +6,6 @@ using Authentication.Domain.Repository.Repository.RoleGroup;
 using Authentication.Domain.Repository.Repository.RolePermission;
 using Authentication.Domain.Repository.Repository.UserGroup;
 using Authentication.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Domain.Repository.Uow

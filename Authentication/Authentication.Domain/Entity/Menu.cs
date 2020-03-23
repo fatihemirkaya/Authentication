@@ -18,4 +18,4 @@ namespace Authentication.Domain.Entity
         public virtual ICollection<RoleMenu> RoleMenu { get; protected set; }
 
     }
-    }
+}

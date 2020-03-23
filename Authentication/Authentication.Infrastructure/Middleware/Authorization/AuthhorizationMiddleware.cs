@@ -2,21 +2,16 @@
 using Authentication.Common.DTO;
 using Authentication.Common.Enum;
 using Authentication.Common.Exceptions;
-using Authentication.Common.Resources;
 using Authentication.Common.Security;
 using Authentication.Domain.Repository.Uow;
 using Authentication.Domain.Token;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
-using System.Resources;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Infrastructure.Middleware
@@ -52,20 +47,20 @@ namespace Authentication.Infrastructure.Middleware
                         if (app == null)
                             throw new BusinessException(ResponseCode.ApplicationNotAuthorized);
 
-                        var user = await uow.User.GetAsync(x=>x.UserName == request.RequestInfo.ClientCode && x.UserType ==  UserType.Application);
+                        var user = await uow.User.GetAsync(x => x.UserName == request.RequestInfo.ClientCode && x.UserType == UserType.Application);
 
                         if (user == null)
                             throw new BusinessException(ResponseCode.ApplicationNotAuthorized);
 
-                        var userApp = await uow.UserApplication.GetAsync(x=> x.UserId ==  user.Id && x.ApplicationId == app.Id);
+                        var userApp = await uow.UserApplication.GetAsync(x => x.UserId == user.Id && x.ApplicationId == app.Id);
 
                         if (userApp == null)
                             throw new BusinessException(ResponseCode.ApplicationNotAuthorized);
-                        
+
 
                         if (!String.IsNullOrEmpty(request.RequestInfo.ClientPassword) && !String.IsNullOrEmpty(user.PasswordSalt) && HashHelper.GetDecryptedString(user.Password, user.PasswordSalt) != request.RequestInfo.ClientPassword)
                             throw new BusinessException(ResponseCode.ApplicationNotAuthorized);
-                        
+
 
                         if (!String.IsNullOrEmpty(context.Request.Headers["Authorization"]))
                         {
@@ -79,7 +74,7 @@ namespace Authentication.Infrastructure.Middleware
 
                             if (!userPermission)
                                 throw new BusinessException(ResponseCode.PermissionNotFound);
-                            
+
                         }
 
                     }

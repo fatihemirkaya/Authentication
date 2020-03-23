@@ -22,7 +22,7 @@ namespace Authentication.Domain.Entity
         public Permission()
         { }
 
-        public Permission(string permissionName, string permissionDesc, string actionName,long appId)
+        public Permission(string permissionName, string permissionDesc, string actionName, long appId)
         {
             this.PermissionName = permissionName;
             this.PermissionDescription = permissionDesc;

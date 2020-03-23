@@ -1,10 +1,6 @@
 ﻿
 using Authentication.Common.Constants;
-using Authentication.Common.DTO;
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace Authentication.Common.DTO
 {

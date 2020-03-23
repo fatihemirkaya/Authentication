@@ -9,7 +9,6 @@ using Authentication.Persistence.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Authentication.Domain.Repository.Repository
@@ -75,7 +74,7 @@ namespace Authentication.Domain.Repository.Repository
                 throw new BusinessException(ResponseCode.UserNotFound);
             }
 
-            var _userApplications =user.UserApplications.Where(x => x.ApplicationId == appId);
+            var _userApplications = user.UserApplications.Where(x => x.ApplicationId == appId);
 
             if (!_userApplications.Any())
             {

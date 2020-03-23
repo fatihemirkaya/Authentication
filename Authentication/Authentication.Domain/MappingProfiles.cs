@@ -1,9 +1,7 @@
 ﻿using Authentication.Domain.Dto.User;
 using Authentication.Domain.Entity;
 using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Authentication.Domain
 {

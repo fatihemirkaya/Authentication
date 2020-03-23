@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Authentication.Domain.Repository.Uow;
+using Authentication.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Authentication.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Authentication.Domain.Repository.Uow;
 
 namespace Authentication.Infrastructure.DI.Installers
 {

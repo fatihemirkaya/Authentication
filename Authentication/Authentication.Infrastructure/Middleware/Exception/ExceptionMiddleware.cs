@@ -2,12 +2,9 @@
 using Authentication.Common.DTO;
 using Authentication.Common.Exceptions;
 using Authentication.Common.Resources;
-using Authentication.Domain.Token;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System;
-using System.Collections.Generic;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,7 +64,7 @@ namespace Authentication.Infrastructure.Middleware
 
         private async Task WriteResponseAsync(HttpContext context, string bodyJson)
         {
-            
+
             context.Response.Headers.Add("Accept", "application/json");
             context.Response.Headers.Add("Content-Type", "application/json");
             context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -84,7 +81,7 @@ namespace Authentication.Infrastructure.Middleware
             {
                 exceptionMessage = this.GetResponseMessage(responseCode, parameters);
             }
-           
+
             ResponseDTOBase response = new ResponseDTOBase();
             response.responseInfo.responseCode = responseCode;
             response.responseInfo.message = exceptionMessage;
