@@ -9,18 +9,16 @@ namespace Authentication.Domain.Entity
         public virtual Permission Permission { get; protected set; }
         public virtual long RoleId { get; protected set; }
         public virtual Role Role { get; protected set; }
-        public virtual long CreatorUserId { get; protected set; }
-        public virtual DateTime CreationTime { get; protected set; }
-        public virtual DateTime? LastModTime { get; protected set; }
-        public virtual long? ModifierUserId { get; protected set; }
+        public virtual long CreatorUserId { get;  set; }     
+        public virtual DateTime CreationTime { get;  set; }
+        public virtual DateTime? LastModTime { get;  set; }
+        public virtual long? ModifierUserId { get;  set; }
         public virtual bool IsDeleted { get; protected set; }
 
         public RolePermission(Role role, Permission permission)
         {
             Role = role;
             Permission = permission;
-            CreationTime = DateTime.Now;
-            CreatorUserId = 1; //TODO
         }
 
         public RolePermission()

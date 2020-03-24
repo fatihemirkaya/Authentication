@@ -4,9 +4,9 @@ namespace Authentication.Common.Entity
 {
     public interface IAudit
     {
-        long CreatorUserId { get; }
-        DateTime? LastModTime { get; }
-        long? ModifierUserId { get; }
-        DateTime CreationTime { get; }
+        public long CreatorUserId { get; set; }
+        public DateTime? LastModTime { get; set; }
+        public long? ModifierUserId { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

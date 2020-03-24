@@ -1,4 +1,5 @@
 using Authentication.Domain;
+using Authentication.Domain.Manager;
 using Authentication.Domain.Token;
 using Authentication.Infrastructure.DI.Installers;
 using Authentication.Infrastructure.Middleware;

@@ -1,7 +1,12 @@
-﻿using Authentication.Domain.Entity;
+﻿using Authentication.Common.Entity;
+using Authentication.Domain.Entity;
+using Authentication.Domain.Manager;
 using Authentication.Persistence.Configs;
 using Microsoft.EntityFrameworkCore;
-
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Authentication.Persistence.Context
 {
@@ -11,6 +16,75 @@ namespace Authentication.Persistence.Context
           : base(options)
         {
         }
+
+        public override int SaveChanges()
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                .Where(x => x.Entity is IAudit
+                    && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entry in modifiedEntries)
+            {
+                IAudit entity = entry.Entity as IAudit;
+                if (entity != null)
+                {
+                    var identityId = 1;
+                    /*Thread.CurrentPrincipal.Identity.Name;*/
+                    DateTime now = DateTime.UtcNow;
+
+                    if (entry.State == EntityState.Added)
+                    {
+                        entity.CreatorUserId = identityId;
+                        entity.CreationTime = now;
+                    }
+                    else
+                    {
+                        base.Entry(entity).Property(x => x.CreatorUserId).IsModified = false;
+                        base.Entry(entity).Property(x => x.CreationTime).IsModified = false;
+                    }
+
+                    entity.ModifierUserId = identityId;
+                    entity.LastModTime = now;
+                }
+            }
+
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var modifiedEntries = ChangeTracker.Entries()
+                .Where(x => x.Entity is IAudit
+                    && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            foreach (var entry in modifiedEntries)
+            {
+                IAudit entity = entry.Entity as IAudit;
+                if (entity != null)
+                {
+                    var identityId = UserManager.IsLoggin() ? UserManager.ActiveUserId : -1 ;
+                    /*Thread.CurrentPrincipal.Identity.Name;*/
+                    DateTime now = DateTime.UtcNow;
+
+                    if (entry.State == EntityState.Added)
+                    {
+                        entity.CreatorUserId = identityId;
+                        entity.CreationTime = now;
+                    }
+                    else
+                    {
+                        base.Entry(entity).Property(x => x.CreatorUserId).IsModified = false;
+                        base.Entry(entity).Property(x => x.CreationTime).IsModified = false;
+                    }
+
+                    entity.ModifierUserId = identityId;
+                    entity.LastModTime = now;
+                }
+            }
+
+            return await base.SaveChangesAsync();
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

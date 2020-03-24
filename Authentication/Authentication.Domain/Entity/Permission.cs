@@ -9,10 +9,10 @@ namespace Authentication.Domain.Entity
         public virtual string PermissionName { get; protected set; }
         public virtual string PermissionDescription { get; protected set; }
         public virtual string ActionName { get; protected set; }
-        public virtual long CreatorUserId { get; protected set; }
-        public virtual DateTime CreationTime { get; protected set; }
-        public virtual DateTime? LastModTime { get; protected set; }
-        public virtual long? ModifierUserId { get; protected set; }
+        public virtual long CreatorUserId { get;  set; }      
+        public virtual DateTime CreationTime { get;  set; }
+        public virtual DateTime? LastModTime { get;  set; }
+        public virtual long? ModifierUserId { get;  set; }
         public virtual bool IsDeleted { get; protected set; }
         public virtual long ApplicationId { get; protected set; }
         public virtual Application Application { get; protected set; }
@@ -27,9 +27,8 @@ namespace Authentication.Domain.Entity
             this.PermissionName = permissionName;
             this.PermissionDescription = permissionDesc;
             this.ActionName = actionName;
-            this.CreationTime = DateTime.Now;
             this.ApplicationId = appId;
-            this.CreatorUserId = 1; //TODO
+
         }
         public Permission PermissionUpdate(string PermissionName, string PermissionDesc, string ActionName)
         {

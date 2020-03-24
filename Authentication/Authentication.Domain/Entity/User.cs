@@ -13,11 +13,11 @@ namespace Authentication.Domain.Entity
         public virtual string Email { get; protected set; }
         public string Password { get; protected set; }
         public virtual string PasswordSalt { get; protected set; }
-        public virtual long CreatorUserId { get; protected set; }
-        public virtual long? ModifierUserId { get; protected set; }
-        public UserType UserType { get; protected set; }
-        public virtual DateTime CreationTime { get; protected set; }
-        public virtual DateTime? LastModTime { get; protected set; }
+        public virtual long CreatorUserId { get;  set; }
+        public virtual long? ModifierUserId { get;  set; }
+        public UserType UserType { get; protected set; }      
+        public virtual DateTime CreationTime { get;  set; }
+        public virtual DateTime? LastModTime { get;  set; }
         public virtual UserDetail UserDetail { get; protected set; }
         public virtual UserToken UserToken { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
@@ -33,8 +33,6 @@ namespace Authentication.Domain.Entity
             this.PasswordSalt = _passwordSalt;
             this.Password = _password;
             this.UserType = _usertype;
-            this.CreatorUserId = 1; //TODO
-            this.CreationTime = DateTime.Now;
             this.IsDeleted = false;
             this.Status = StatusType.Available;
         }

@@ -9,10 +9,12 @@ namespace Authentication.Domain.Entity
         public virtual string RoleName { get; protected set; }
         public virtual string RoleDescription { get; protected set; }
         public virtual bool IsDeleted { get; protected set; }
-        public virtual long CreatorUserId { get; protected set; }
-        public virtual DateTime CreationTime { get; protected set; }
-        public virtual DateTime? LastModTime { get; protected set; }
-        public virtual long? ModifierUserId { get; protected set; }
+        public virtual long CreatorUserId { get;  set; }
+        
+        public virtual DateTime CreationTime { get;  set; }
+        
+        public virtual DateTime? LastModTime { get;  set; }
+        public virtual long? ModifierUserId { get;  set; }
         public virtual ICollection<RoleMenu> RoleMenu { get; protected set; }
         public virtual ICollection<RoleGroup> RoleGroup { get; protected set; }
         public virtual ICollection<RolePermission> RolePermissions { get; protected set; }
@@ -25,8 +27,6 @@ namespace Authentication.Domain.Entity
         {
             this.RoleName = roleName;
             this.RoleDescription = roleDesc;
-            this.CreationTime = DateTime.Now;
-            this.CreatorUserId = 1; //TODO
         }
         public Role RoleUpdate(string roleName, string roleDesc)
         {

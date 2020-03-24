@@ -3,6 +3,7 @@ using Authentication.Common.DTO;
 using Authentication.Common.Enum;
 using Authentication.Common.Exceptions;
 using Authentication.Common.Security;
+using Authentication.Domain.Manager;
 using Authentication.Domain.Repository.Uow;
 using Authentication.Domain.Token;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,6 @@ namespace Authentication.Infrastructure.Middleware
         {
             next = _next;
             this.tokenOpt = _tokenOpt.Value;
-
         }
 
         public async Task InvokeAsync(HttpContext context, IUnitOfWork uow)
@@ -68,12 +68,16 @@ namespace Authentication.Infrastructure.Middleware
                             var handler = new JwtSecurityTokenHandler();
                             var tokenreaded = handler.ReadJwtToken(accesstoken);
                             var userid = Convert.ToInt64(tokenreaded.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                            var userName = tokenreaded.Claims.First(x => x.Type == ClaimTypes.Name).Value;
 
-
+                    
                             var userPermission = uow.UserRole.HasPermission(userid, ControllerRoute);
 
                             if (!userPermission)
                                 throw new BusinessException(ResponseCode.PermissionNotFound);
+
+                            UserManager.ActiveUserId = userid;
+                            UserManager.ActiveUserName = userName;
 
                         }
 

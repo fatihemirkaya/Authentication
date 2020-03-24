@@ -19,7 +19,7 @@ namespace Authentication.WebApi.Controllers
         {
             this.AuthenticationService = authenticationService;
         }
-
+        [Authorize]
         [HttpPost]
         [Route("/api/v1/InsertUserAsync")]
         public async Task<InsertUserResponseDTO> InsertUserAsync(InsertUserRequestDTO request)
